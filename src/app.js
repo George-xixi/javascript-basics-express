@@ -7,9 +7,11 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 
-const { add, subtract } = require('./lib/numbers');
+const { add, subtract, multiply, divide } = require('./lib/numbers');
 
 const app = express();
+
+app.use(express.json());
 
 app.get('/strings/hello/:string', (req, res) => {
   const { string } = req.params;
@@ -55,4 +57,35 @@ app.get('/numbers/subtract/:n1/from/:n2', (req, res) => {
   }
   res.status(400).json({ error: 'Parameters must be valid numbers.' });
 });
+
+app.post('/numbers/multiply', (req, res) => {
+  const { a, b } = req.body;
+
+  const n1 = parseInt(a, 10);
+  const n2 = parseInt(b, 10);
+  if (!a || !b) {
+    res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  } else if (Number.isNaN(n1) && Number.isNaN(n2)) {
+    res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  }
+  res.status(200).json({ result: multiply(n1, n2) });
+});
+
+app.post('/numbers/divide', (req, res) => {
+  const { a, b } = req.body;
+
+  const n1 = parseInt(a, 10);
+  const n2 = parseInt(b, 10);
+  if (n1 === 0) {
+    res.status(200).json({ result: 0 });
+  } else if (n2 === 0) {
+    res.status(400).json({ error: 'Unable to divide by 0.' });
+  } else if (!a || !b) {
+    res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  } else if (Number.isNaN(n1) && Number.isNaN(n2)) {
+    res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  }
+  res.status(200).json({ result: divide(n1, n2) });
+});
+
 module.exports = app;
