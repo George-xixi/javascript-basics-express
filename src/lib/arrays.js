@@ -107,5 +107,5 @@ module.exports = {
   elementsStartingWithAVowel,
   removeSpaces,
   sumNumbers,
-  sortByLastLetter
+  sortByLastLetter,
 };
