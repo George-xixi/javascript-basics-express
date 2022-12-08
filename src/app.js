@@ -1,9 +1,9 @@
 const express = require('express');
 
-const stringsRouter = require('./Routers/stringsRouter');
-const numbersRouter = require('./Routers/numbersRouter');
-const booleansRouter = require('./Routers/booleansRouter');
-const arraysRouter = require('./Routers/arraysRouter');
+const stringsRouter = require('./routers/stringsRouter');
+const numbersRouter = require('./routers/numbersRouter');
+const booleansRouter = require('./routers/booleansRouter');
+const arraysRouter = require('./routers/arraysRouter');
 
 const app = express();
 
