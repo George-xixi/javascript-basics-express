@@ -1,11 +1,4 @@
 const express = require('express');
-const {
-  sayHello,
-  uppercase,
-  lowercase,
-  firstCharacter,
-  firstCharacters,
-} = require('./lib/strings');
 
 const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
 
@@ -19,34 +12,13 @@ const {
   removeNthElement2,
 } = require('./lib/arrays');
 
+const stringsRouter = require('./controllers/stringsRouter');
+
 const app = express();
 
 app.use(express.json());
 
-app.get('/strings/hello/:string', (req, res) => {
-  const { string } = req.params;
-  res.status(200).json({ result: sayHello(string) });
-});
-
-app.get('/strings/upper/:string', (req, res) => {
-  const { string } = req.params;
-  res.status(200).json({ result: uppercase(string) });
-});
-
-app.get('/strings/lower/:string', (req, res) => {
-  const { string } = req.params;
-  res.status(200).json({ result: lowercase(string) });
-});
-
-app.get('/strings/first-characters/:string', (req, res) => {
-  const { string } = req.params;
-  const { length } = req.query;
-
-  if (length) {
-    res.status(200).json({ result: firstCharacters(string, length) });
-  }
-  res.status(200).json({ result: firstCharacter(string) });
-});
+app.use('/strings', stringsRouter);
 
 app.get('/numbers/add/:num1/and/:num2', (req, res) => {
   const num1 = parseInt(req.params.num1, 10);
